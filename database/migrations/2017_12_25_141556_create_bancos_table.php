@@ -20,6 +20,7 @@ class CreateBancosTable extends Migration
             $table->string('rif', 34)->nullable();
             $table->string('telefono', 15)->nullable();
             $table->string('codigo', 8)->index();
+            $table->string('codigo_cuentas', 5)->index('codcu');
             $table->softDeletes();
         });
     }

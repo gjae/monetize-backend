@@ -23,6 +23,11 @@ class CreateCuentasTable extends Migration
             $table->text('descripcion')->nullable();
             $table->date('fecha_apertura')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->string('nombe_titular', 25);
+            $table->string('apellido_titular', 25);
+            $table->string('cedula_titular', 11);
+            $table->string('email_titular')->nullable();
+
 
             $table->foreign('banco_id')
                     ->references('id')

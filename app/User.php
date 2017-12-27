@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nombre', 'email', 'password', 'apellido'
     ];
 
     /**
@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function setPasswordAttribute($old){
+        $this->attributes['password'] = bcrypt($old);
+    }
+
+    public function cuentas(){
+        return $this->hasMany('App\Modelos\Cuenta');
+    }
 }

@@ -21,3 +21,7 @@ Route::group(['prefix' => 'cuentas'], function(){
 	Route::get('/', 'CuentasController@index');
 	Route::post('/movimiento', 'CuentasController@addMovimiento');
 });
+
+Route::group(['prefix' => 'banco'], function(){
+	Route::get('/get', 'BancosController@get');
+});

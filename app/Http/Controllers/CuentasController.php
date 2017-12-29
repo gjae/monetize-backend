@@ -21,4 +21,12 @@ class CuentasController extends Controller
 		return response(['error' => false, 'mensaje' => 'DATOS RECIBIDOS', 'datos' => $req], 200)
 				->header('Content-Type', 'application/json');
 	}
+
+	public function nueva(Request $req){
+		return response([
+			'error' => false,
+			'mensaje' => 'Cuenta recibida',
+			'request' => $req->all()
+		], 200)->header('Content-Type', 'application/json');
+	}
 }

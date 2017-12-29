@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'cuentas'], function(){
 	Route::get('/', 'CuentasController@index');
 	Route::post('/movimiento', 'CuentasController@addMovimiento');
+	Route::post('/crear','CuentasController@nueva');
 });
 
 Route::group(['prefix' => 'banco'], function(){

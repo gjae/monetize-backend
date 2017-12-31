@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Modelos\Cuenta;
+use DB;
 
 class CuentasController extends Controller
 {
@@ -23,10 +24,32 @@ class CuentasController extends Controller
 	}
 
 	public function nueva(Request $req){
+
+		$cuenta = new Cuenta($req->all());
+		DB::beginTransaction();
+		try {
+			$cuenta->user_id = 1;
+			if($cuenta->save()){
+				DB::commit();
+				return response([
+					'error' => false,
+					'mensaje' => 'Cuenta agregada exitosamente'
+				], 200)->header('Content-Type', 'application/json');
+			}
+
+		} catch (\Exception $e) {
+			DB::rollback();
+			return response([
+					'error' 	=> false,
+					'mensaje' 	=> 'Cuenta recibida',
+					'request' 	=> $e->getMessage()
+				], 200)->header('Content-Type', 'application/json');
+		}
+
 		return response([
 			'error' 	=> false,
 			'mensaje' 	=> 'Cuenta recibida',
-			'request' 	=> $req->all()
+			'request' 	=> $req->descripcion
 		], 200)->header('Content-Type', 'application/json');
 	}
 

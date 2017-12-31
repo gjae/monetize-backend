@@ -24,9 +24,23 @@ class CuentasController extends Controller
 
 	public function nueva(Request $req){
 		return response([
-			'error' => false,
-			'mensaje' => 'Cuenta recibida',
-			'request' => $req->all()
+			'error' 	=> false,
+			'mensaje' 	=> 'Cuenta recibida',
+			'request' 	=> $req->all()
 		], 200)->header('Content-Type', 'application/json');
+	}
+
+	public function get(Request $req){
+		$cuenta = Cuenta::find($req->id);
+		$data = [
+			'movimientos' 		=> $cuenta->movimientos->toJson(),
+			'saldo' => number_format($cuenta->movimientos->sum('monto'), 2),
+			'ultimo_movimiento' => $cuenta->movimientos()->orderBy('fecha_movimiento','DESC')->first(),
+			'total_movimientos' => $cuenta->movimientos->count(),
+			'promedio' 			=> number_format($cuenta->movimientos->avg('monto'), 2)
+
+		];
+
+		return response($data, 200)->header('Content-Type', 'application/json');
 	}
 }
